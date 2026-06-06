@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablas Creek Business Process Outsourcing</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #2c3e50;
+    --navy-deep: #1a2634;
+    --teal: #16a085;
+    --teal-light: #1abc9c;
+    --teal-pale: #e8f6f3;
+    --cream: #fafaf8;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --border: rgba(44,62,80,0.1);
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    transition: box-shadow 200ms var(--ease-out);
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(44,62,80,0.08); }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--navy), var(--teal));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-mark svg { width: 20px; height: 20px; fill: white; }
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600;
+    color: var(--navy); letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 400; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.03em;
+    transition: color 150ms;
+  }
+  .nav-links a:hover { color: var(--navy); }
+  .btn-nav {
+    padding: 0.5rem 1.25rem;
+    background: var(--navy); color: white;
+    border: none; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.04em;
+    transition: background 150ms, transform 100ms;
+  }
+  .btn-nav:hover { background: var(--teal); }
+  .btn-nav:active { transform: scale(0.97); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(22,160,133,0.06) 0%, transparent 70%);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(44,62,80,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(44,62,80,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 1.5rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(22,160,133,0.3);
+    border-radius: 100px;
+    background: rgba(22,160,133,0.06);
+    animation: fadeUp 0.8s var(--ease-out) forwards;
+    opacity: 0;
+  }
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 300; line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s var(--ease-out) forwards;
+    opacity: 0;
+  }
+  .hero-h1 em { font-style: italic; color: var(--teal); }
+  .hero-sub {
+    font-size: 1rem; color: var(--muted); line-height: 1.8;
+    max-width: 480px; margin-bottom: 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.2s var(--ease-out) forwards;
+    opacity: 0;
+  }
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s var(--ease-out) forwards;
+    opacity: 0;
+  }
+  .btn-primary {
+    padding: 0.875rem 1.75rem;
+    background: var(--navy); color: white;
+    border: none; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.02em;
+    transition: background 200ms var(--ease-out), transform 100ms;
+  }
+  .btn-primary:hover { background: var(--teal); }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-secondary {
+    padding: 0.875rem 1.75rem;
+    background: transparent; color: var(--navy);
+    border: 1px solid rgba(44,62,80,0.25);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 400;
+    cursor: pointer; letter-spacing: 0.02em;
+    transition: border-color 200ms, background 200ms, transform 100ms;
+  }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); background: rgba(22,160,133,0.04); }
+  .btn-secondary:active { transform: scale(0.97); }
+
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    animation: fadeIn 1.2s 0.4s var(--ease-out) forwards;
+    opacity: 0;
+  }
+  .hero-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 24px 80px rgba(44,62,80,0.1);
+    width: 100%; max-width: 400px;
+  }
+  .hero-card-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600;
+    color: var(--navy); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .globe-icon {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--navy), var(--teal));
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600; color: var(--navy); line-height: 1;
+  }
+  .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 0.25rem; letter-spacing: 0.05em; }
+  .divider { height: 0.5px; background: var(--border); margin: 1.5rem 0; }
+  .service-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip {
+    font-size: 0.72rem; font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    letter-spacing: 0.03em;
+  }
+  .chip-finance { background: rgba(22,160,133,0.1); color: var(--teal); }
+  .chip-eng { background: rgba(44,62,80,0.08); color: var(--navy); }
+  .chip-media { background: rgba(22,160,133,0.07); color: #0f7a5a; }
+  .chip-it { background: rgba(44,62,80,0.05); color: #4a6274; }
+
+  /* STORY */
+  #story {
+    padding: 6rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+    background: white;
+  }
+  .story-label {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 1rem;
+  }
+  .story-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; line-height: 1.2;
+    color: var(--navy); margin-bottom: 1.5rem;
+  }
+  .story-h2 em { font-style: italic; }
+  .story-body { font-size: 0.95rem; color: var(--muted); line-height: 1.9; font-weight: 300; }
+  .story-body p + p { margin-top: 1rem; }
+  .story-body strong { color: var(--navy); font-weight: 500; }
+  .story-visual {
+    position: relative;
+    background: var(--navy-deep);
+    border-radius: 20px; overflow: hidden;
+    min-height: 360px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .island-map {
+    position: relative; width: 100%; height: 360px;
+  }
+  .map-label {
+    position: absolute; font-size: 0.7rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.5);
+  }
+  .romblon-label { top: 1.5rem; left: 1.5rem; }
+  .island-shape {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .pulse-ring {
+    position: absolute; top: 50%; left: 50%;
+    width: 60px; height: 60px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(22,160,133,0.4);
+    animation: pulse 2.5s ease-out infinite;
+  }
+  .pulse-ring:nth-child(2) { animation-delay: 0.8s; width: 90px; height: 90px; }
+  .pulse-ring:nth-child(3) { animation-delay: 1.6s; width: 120px; height: 120px; }
+  .island-dot {
+    position: absolute; top: 50%; left: 50%;
+    width: 10px; height: 10px;
+    background: var(--teal);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px rgba(22,160,133,0.8);
+  }
+  .map-tagline {
+    position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300; font-style: italic;
+    color: rgba(255,255,255,0.85); line-height: 1.4;
+  }
+
+  /* SERVICES */
+  #services {
+    padding: 6rem 4rem;
+    background: var(--cream);
+  }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-label {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 1rem;
+  }
+  .section-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 300; color: var(--navy); line-height: 1.2;
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 250ms var(--ease-out), transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out);
+    cursor: default;
+  }
+  .service-card:hover {
+    border-color: rgba(22,160,133,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(44,62,80,0.08);
+  }
+  .service-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem; font-size: 1.3rem;
+  }
+  .icon-finance { background: rgba(22,160,133,0.1); }
+  .icon-eng { background: rgba(44,62,80,0.08); }
+  .icon-media { background: rgba(22,160,133,0.06); }
+  .service-h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.75rem; line-height: 1.3;
+  }
+  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; font-weight: 300; }
+  .service-offerings { list-style: none; }
+  .service-offerings li {
+    font-size: 0.78rem; color: var(--muted);
+    padding: 0.4rem 0;
+    border-top: 0.5px solid var(--border);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .offering-dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--teal); flex-shrink: 0;
+  }
+
+  /* ADVANTAGE */
+  #advantage {
+    padding: 6rem 4rem;
+    background: white;
+  }
+  .advantage-table-wrap {
+    border: 0.5px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    margin-top: 3rem;
+  }
+  .adv-table { width: 100%; border-collapse: collapse; }
+  .adv-table thead tr { background: var(--navy); }
+  .adv-table thead th {
+    padding: 1.25rem 1.5rem;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.7);
+    text-align: left;
+  }
+  .adv-table thead th:first-child { width: 20%; }
+  .adv-table thead th.col-tcg { color: var(--teal-light); }
+  .adv-table tbody tr { border-bottom: 0.5px solid var(--border); transition: background 150ms; }
+  .adv-table tbody tr:last-child { border-bottom: none; }
+  .adv-table tbody tr:hover { background: rgba(22,160,133,0.02); }
+  .adv-table td { padding: 1.25rem 1.5rem; font-size: 0.875rem; vertical-align: top; }
+  .col-feature { font-weight: 500; color: var(--navy); font-size: 0.825rem; }
+  .col-corp { color: var(--muted); font-weight: 300; }
+  .col-tcg-cell { color: var(--text); font-weight: 400; }
+  .tcg-badge {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.68rem; font-weight: 500;
+    color: var(--teal); background: rgba(22,160,133,0.1);
+    padding: 0.2rem 0.55rem; border-radius: 100px;
+    margin-bottom: 0.5rem; letter-spacing: 0.03em;
+  }
+
+  /* PROCESS */
+  #process {
+    padding: 6rem 4rem;
+    background: var(--cream);
+  }
+  .steps-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 3rem; position: relative;
+  }
+  .steps-row::before {
+    content: '';
+    position: absolute; top: 2.25rem; left: 12.5%; right: 12.5%;
+    height: 0.5px; background: linear-gradient(90deg, var(--teal), rgba(44,62,80,0.2));
+    z-index: 0;
+  }
+  .step {
+    text-align: center; padding: 0 1.5rem;
+    position: relative; z-index: 1;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  }
+  .step.visible { opacity: 1; transform: translateY(0); }
+  .step:nth-child(1) { transition-delay: 0ms; }
+  .step:nth-child(2) { transition-delay: 80ms; }
+  .step:nth-child(3) { transition-delay: 160ms; }
+  .step:nth-child(4) { transition-delay: 240ms; }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: white; border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 600; color: var(--teal);
+    transition: background 250ms, border-color 250ms, transform 250ms var(--ease-out);
+  }
+  .step:hover .step-num {
+    background: var(--teal); color: white;
+    border-color: var(--teal);
+    transform: scale(1.08);
+  }
+  .step-title {
+    font-weight: 500; color: var(--navy);
+    margin-bottom: 0.5rem; text-transform: uppercase;
+    letter-spacing: 0.08em; font-size: 0.75rem;
+  }
+  .step-desc { font-size: 0.825rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+  /* CTA BANNER */
+  #cta {
+    padding: 6rem 4rem;
+    background: var(--navy-deep);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(22,160,133,0.15) 0%, transparent 70%);
+  }
+  .cta-content { position: relative; z-index: 1; }
+  .cta-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300; color: white; line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .cta-h2 em { font-style: italic; color: var(--teal-light); }
+  .cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.5); font-weight: 300; margin-bottom: 2.5rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .btn-cta {
+    padding: 1rem 2.5rem;
+    background: var(--teal); color: white;
+    border: none; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.04em;
+    transition: background 200ms var(--ease-out), transform 100ms;
+  }
+  .btn-cta:hover { background: var(--teal-light); }
+  .btn-cta:active { transform: scale(0.97); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-deep);
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 2rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: rgba(255,255,255,0.5); font-weight: 300;
+  }
+  .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.75rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 150ms; }
+  .footer-links a:hover { color: var(--teal-light); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pulse {
+    0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2rem; }
+    #story { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    #services, #advantage, #process, #cta { padding: 4rem 1.5rem; }
+    .steps-row { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .steps-row::before { display: none; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="white" stroke-width="1.2"/>
+        <path d="M12 2 Q16 7 16 12 Q16 17 12 22 Q8 17 8 12 Q8 7 12 2Z" fill="white" opacity="0.7"/>
+        <line x1="2" y1="12" x2="22" y2="12" stroke="white" stroke-width="1.2" opacity="0.6"/>
+      </svg>
+    </div>
+    <span class="nav-brand">Tablas Creek Business Process Outsourcing</span>
+  </div>
+  <div class="nav-links">
+    <a href="#story">Our Story</a>
+    <a href="#services">Services</a>
+    <a href="#advantage">Advantage</a>
+    <a href="#process">Process</a>
+    <button class="btn-nav">Schedule a Call</button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span>&#9670;</span> Business Process Outsourcing Excellence, Romblon Province
+    </div>
+    <h1 class="hero-h1">Global Enterprise<br>Solutions.<br><em>Handcrafted</em> Local Talent.</h1>
+    <p class="hero-sub">Tablas Creek Business Process Outsourcing connects forward-thinking businesses with elite offshore professionals in Accounting, Engineering, and Digital Infrastructure.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary">Schedule a Discovery Call</button>
+      <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">View Our Services</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-logo">
+        <div class="globe-icon"></div>
+        TCBPO
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Core Pillars</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">PH</div>
+          <div class="stat-label">Based in Tablas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">&#8734;</div>
+          <div class="stat-label">Scale</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="service-chips">
+        <span class="chip chip-finance">Finance &amp; Accounting</span>
+        <span class="chip chip-eng">Engineering</span>
+        <span class="chip chip-media">Multimedia</span>
+        <span class="chip chip-it">IT Services</span>
+        <span class="chip chip-eng">CAD &amp; 3D Modeling</span>
+        <span class="chip chip-finance">FP&amp;A</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="story-visual">
+    <div class="island-map">
+      <div class="map-label romblon-label">Romblon Province, Philippines</div>
+      <div class="island-shape">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="island-dot"></div>
+      </div>
+      <div class="map-tagline">"From Tablas Island<br>to the global stage."</div>
+    </div>
+  </div>
+  <div>
+    <div class="story-label">Our Origin</div>
+    <h2 class="story-h2">From <em>Tablas Island</em><br>to the Global Stage</h2>
+    <div class="story-body">
+      <p>Tablas Island is the hidden gem of the Romblon Province — an island shaped by rich cultural heritage, meticulous craftsmanship, and an exceptionally talented pool of professionals.</p>
+      <p>Historically, world-class local talent faced a frustrating reality: accept underemployment or leave home behind in search of opportunity. <strong>We decided to change the paradigm.</strong></p>
+      <p>Tablas Creek Business Process Outsourcing was founded to bridge the gap between global operational demands and brilliant offshore talent. We don't just outsource; we elevate — empowering international businesses to scale while providing sustainable, high-impact careers locally.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-header">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-h2">Three Pillars of Excellence</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon icon-finance">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a085" stroke-width="1.5" stroke-linecap="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h2v5H7zM11 6h2v7h-2zM15 9h2v4h-2z"/>
+        </svg>
+      </div>
+      <h3 class="service-h3">Financial Infrastructure &amp; Accounting</h3>
+      <p class="service-desc">Transform your numbers into strategic growth. Our university-trained finance professionals deliver flawless back-office compliance.</p>
+      <ul class="service-offerings">
+        <li><span class="offering-dot"></span> End-to-end bookkeeping</li>
+        <li><span class="offering-dot"></span> Virtual controller support</li>
+        <li><span class="offering-dot"></span> Financial planning &amp; analysis (FP&amp;A)</li>
+        <li><span class="offering-dot"></span> Audit readiness</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon icon-eng">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2c3e50" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+      <h3 class="service-h3">Engineering &amp; Technical Services</h3>
+      <p class="service-desc">Accelerate your project timelines without compromising on technical precision. Our engineering division handles complex documentation with rigorous accuracy.</p>
+      <ul class="service-offerings">
+        <li><span class="offering-dot"></span> CAD drafting</li>
+        <li><span class="offering-dot"></span> 3D modeling (MEP/Structural)</li>
+        <li><span class="offering-dot"></span> Technical estimations</li>
+        <li><span class="offering-dot"></span> Quantity surveying</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon icon-media">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a085" stroke-width="1.5" stroke-linecap="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M10 8l5 3-5 3V8z"/>
+        </svg>
+      </div>
+      <h3 class="service-h3">Creative Multimedia &amp; IT Services</h3>
+      <p class="service-desc">Elevate your digital presence through striking visual storytelling and robust digital architecture.</p>
+      <ul class="service-offerings">
+        <li><span class="offering-dot"></span> Professional photo/video editing</li>
+        <li><span class="offering-dot"></span> Graphic design</li>
+        <li><span class="offering-dot"></span> Responsive web design</li>
+        <li><span class="offering-dot"></span> End-to-end web development</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="advantage">
+  <div class="section-header">
+    <div class="section-label">The Tablas Creek Business Process Outsourcing Difference</div>
+    <h2 class="section-h2">Why Tablas Creek Business Process Outsourcing</h2>
+  </div>
+  <div class="advantage-table-wrap">
+    <table class="adv-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>The Corporate Giant</th>
+          <th class="col-tcg">The Tablas Creek Business Process Outsourcing Advantage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-feature">Talent Retention</td>
+          <td class="col-corp">High turnover rates, disconnected transactional staff.</td>
+          <td class="col-tcg-cell"><span class="tcg-badge">&#10003; TC Edge</span><br>Deeply loyal, highly motivated local career professionals.</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Communication</td>
+          <td class="col-corp">Rigid, automated layers and impersonal customer support.</td>
+          <td class="col-tcg-cell"><span class="tcg-badge">&#10003; TC Edge</span><br>Direct, agile collaboration built on clear operational alignment.</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Quality Control</td>
+          <td class="col-corp">Automated, volume-based output lacking individual scrutiny.</td>
+          <td class="col-tcg-cell"><span class="tcg-badge">&#10003; TC Edge</span><br>Meticulous oversight driven by a community proud of its work.</td>
+        </tr>
+        <tr>
+          <td class="col-feature">Social Impact</td>
+          <td class="col-corp">Purely transactional operations.</td>
+          <td class="col-tcg-cell"><span class="tcg-badge">&#10003; TC Edge</span><br>Directly fuels sustainable economic growth in a rising talent hub.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-header">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-h2">Our Onboarding Process</h2>
+  </div>
+  <div class="steps-row" id="stepsRow">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Discover</div>
+      <p class="step-desc">We map out your exact operational friction points and technical requirements.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Match</div>
+      <p class="step-desc">We pair you with specialized Tablas professionals vetted for your industry.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Integrate</div>
+      <p class="step-desc">We sync your tools, communication channels, and secure data lines seamlessly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Scale</div>
+      <p class="step-desc">We continuously manage performance metrics and deliver exceptional output.</p>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <h2 class="cta-h2">Ready to build your<br><em>elite offshore team?</em></h2>
+    <p class="cta-sub">Stop compromising between cost and quality. Let us connect your business with the exceptional, dedicated talent of Tablas Creek Business Process Outsourcing.</p>
+    <button class="btn-cta">Let's Talk Strategy</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Tablas Creek Business Process Outsourcing</div>
+  <div class="footer-copy">&copy; 2025 Tablas Creek Business Process Outsourcing. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- CALENDLY MODAL -->
+<div id="calendly-overlay" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(26,38,52,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+  <div id="calendly-modal" style="background:white;border-radius:20px;width:90%;max-width:720px;height:80vh;max-height:700px;position:relative;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,0.3);">
+    <button onclick="closeCalendly()" style="position:absolute;top:1rem;right:1rem;z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(44,62,80,0.08);border:none;cursor:pointer;font-size:1.1rem;color:#2c3e50;display:flex;align-items:center;justify-content:center;transition:background 150ms,transform 100ms;" onmouseover="this.style.background='rgba(44,62,80,0.15)'" onmouseout="this.style.background='rgba(44,62,80,0.08)'" aria-label="Close">&#x2715;</button>
+    <div style="padding:1.5rem 2rem 1rem;border-bottom:0.5px solid rgba(44,62,80,0.1);">
+      <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#16a085;margin-bottom:0.25rem;">Book a Session</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#2c3e50;margin:0;">Schedule a Discovery Call</h3>
+    </div>
+    <!--
+      SETUP INSTRUCTIONS:
+      1. Go to calendly.com → create a free account
+      2. Create a "30 min Discovery Call" event type
+      3. Copy your booking link (e.g. https://calendly.com/yourname/discovery-call)
+      4. Replace the src below with your actual Calendly link
+    -->
+    <iframe src="https://calendly.com/jeffreyrouisse/30min" width="100%" frameborder="0" style="border:none;display:block;height:calc(80vh - 90px);max-height:610px;"></iframe>
+  </div>
+</div>
+
+<style>
+  #calendly-overlay { animation: fadeIn 200ms cubic-bezier(0.23,1,0.32,1); }
+  #calendly-modal { animation: modalUp 250ms cubic-bezier(0.23,1,0.32,1); }
+  @keyframes modalUp {
+    from { opacity:0; transform:translateY(24px) scale(0.98); }
+    to { opacity:1; transform:translateY(0) scale(1); }
+  }
+</style>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+const steps = document.querySelectorAll('.step');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.2 });
+steps.forEach(s => observer.observe(s));
+
+function openCalendly() {
+  const overlay = document.getElementById('calendly-overlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCalendly() {
+  document.getElementById('calendly-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('calendly-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeCalendly();
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCalendly(); });
+
+document.querySelectorAll('.btn-primary, .btn-nav, .btn-cta').forEach(btn => {
+  if (btn.textContent.includes('Schedule') || btn.textContent.includes('Strategy') || btn.textContent.includes('Call')) {
+    btn.addEventListener('click', openCalendly);
+  }
+});
+</script>
+</body>
+</html>
